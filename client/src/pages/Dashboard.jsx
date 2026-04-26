@@ -1,10 +1,16 @@
+
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import projectService from '../services/projectService'
 
+import profileService from '../services/profileService'
+
 export default function Dashboard() {
   const { user } = useSelector((state) => state.auth)
   const [data, setData] = useState([])
+
+  const [recommendations, setRecommendations] = useState([])
+  const [loadingRec, setLoadingRec] = useState(false)
 
   useEffect(() => {
     if (user?.role === 'student') {
@@ -20,7 +26,16 @@ export default function Dashboard() {
     if (status === 'under_review') return 'text-amber-600'
     return 'text-gray-500'
   }
-
+  const handleGetRecommendations = async () => {
+    setLoadingRec(true)
+    try {
+        const recs = await profileService.getRecommendations()
+        setRecommendations(recs)
+    } catch (err) {
+        alert('Could not get recommendations')
+    }
+    setLoadingRec(false)
+    }
   return (
     <div>
       <h1 className="text-2xl font-bold mb-4">Welcome, {user?.name}</h1>
@@ -38,6 +53,21 @@ export default function Dashboard() {
               </p>
             </div>
           ))}
+          <div className="mt-8">
+            <h2 className="text-lg font-semibold mb-3">AI Project Recommendations</h2>
+            <button
+                onClick={handleGetRecommendations}
+                className="mb-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+            >
+                {loadingRec ? 'Getting recommendations...' : 'Get AI Recommendations'}
+            </button>
+            {recommendations.map((rec, i) => (
+                <div key={i} className="border p-4 rounded bg-purple-50 mb-3">
+                <p className="font-semibold">{rec.title}</p>
+                <p className="text-sm text-gray-600 mt-1">{rec.reason}</p>
+                </div>
+            ))}
+            </div>
         </div>
       )}
 
