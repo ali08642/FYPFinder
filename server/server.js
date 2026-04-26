@@ -32,5 +32,15 @@ app.use('/api/applications', applicationRoutes)
 const profileRoutes = require('./routes/profileRoutes')
 app.use('/api/profile', profileRoutes)
 
+//blog rotes
+const blogRoutes = require('./routes/blogRoutes')
+app.use('/api/blog', blogRoutes)
+
+
+//admin things routes for those things
+const adminRoutes = require('./routes/adminRoutes')
+app.use('/api/admin', adminRoutes)
+
+
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
