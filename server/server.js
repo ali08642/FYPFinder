@@ -28,5 +28,9 @@ const applicationRoutes = require('./routes/applicationRoutes')
 app.use('/api/projects', projectRoutes)
 app.use('/api/applications', applicationRoutes)
 
+//profile api
+const profileRoutes = require('./routes/profileRoutes')
+app.use('/api/profile', profileRoutes)
+
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))

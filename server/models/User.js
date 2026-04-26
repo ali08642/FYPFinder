@@ -22,7 +22,12 @@ const userSchema = new mongoose.Schema({
         type:String,
         enum:['student','supervisor','admin'],
         default:'student'
-    }
+    },
+    skills: { type: String, default: '' },
+    interests: { type: String, default: '' },
+    preferredDomain: { type: String, default: 'any' },
+    github: { type: String, default: '' },
+    bio: { type: String, default: '' }
 },{
     timestamps:true
 })  
