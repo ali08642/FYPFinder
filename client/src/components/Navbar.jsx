@@ -13,7 +13,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-blue-600 text-white px-6 py-3 flex justify-between items-center">
+    <nav className="bg-blue-700 text-white px-6 py-3 flex justify-between items-center">
       <span className="font-bold text-lg cursor-pointer" onClick={() => navigate('/dashboard')}>
         FYPFinder
       </span>
@@ -21,7 +21,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4 text-sm">
           <span>{user.name} ({user.role})</span>
           <button onClick={handleLogout}
-            className="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-100">
+            className="rounded-md px-4 py-2 bg-white text-blue-700 hover:bg-gray-100">
             Logout
           </button>
         </div>

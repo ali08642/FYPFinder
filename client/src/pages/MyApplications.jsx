@@ -17,13 +17,13 @@ export default function MyApplications() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">My Applications</h1>
-      {applications.length === 0 && <p className="text-gray-500">You haven't applied to any projects yet.</p>}
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">My Applications</h1>
+      {applications.length === 0 && <p className="text-gray-500 text-center">You haven't applied to any projects yet</p>}
       {applications.map((app) => (
-        <div key={app._id} className="border p-4 rounded bg-white mb-3">
+        <div key={app._id} className="bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition mb-3">
           <p className="font-medium">{app.project?.title}</p>
           <p className="text-sm text-gray-500 mb-2">{app.project?.domain}</p>
-          <span className={`text-xs px-2 py-1 rounded font-semibold ${statusColor(app.status)}`}>
+          <span className={`text-xs px-3 py-1 rounded-full font-semibold ${statusColor(app.status)}`}>
             {app.status}
           </span>
         </div>

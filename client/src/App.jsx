@@ -4,7 +4,7 @@ import Layout from './components/Layout'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
-import BrowseProjects from './pages/BrowseProjects'
+import BrowseProjects from './pages/browseProjects'
 import PostProject from './pages/PostProject'
 import MyApplications from './pages/MyApplications'
 import MyProjects from './pages/MyProjects'
@@ -12,14 +12,19 @@ import Applicants from './pages/Applicants'
 import Profile from './pages/Profile'
 import Blog from './pages/Blog'
 import CashFlow from './pages/CashFlow'
+import Landing from './pages/Landing'
+import Contact from './pages/Contact'
+import Analytics from './pages/Analytics'
 
 function App() {
   const { user } = useSelector((state) => state.auth)
   const wrap = (component) => user ? <Layout>{component}</Layout> : <Navigate to="/login" />
+  const wrapPublicOrPrivate = (component) => user ? <Layout>{component}</Layout> : component
 
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={user ? <Navigate to="/dashboard" /> : <Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={wrap(<Dashboard />)} />
@@ -30,8 +35,10 @@ function App() {
         <Route path="/applicants/:projectId" element={wrap(<Applicants />)} />
         <Route path="/profile" element={wrap(<Profile />)} />
         <Route path="/blog" element={wrap(<Blog />)} />
+        <Route path="/contact" element={wrapPublicOrPrivate(<Contact />)} />
+        <Route path="/analytics" element={wrap(<Analytics />)} />
         <Route path="/cashflow" element={wrap(<CashFlow />)} />
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to={user ? '/dashboard' : '/'} />} />
       </Routes>
     </BrowserRouter>
   )
