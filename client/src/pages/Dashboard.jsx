@@ -11,6 +11,7 @@ export default function Dashboard() {
 
   const [recommendations, setRecommendations] = useState([])
   const [loadingRec, setLoadingRec] = useState(false)
+  const [recMessage, setRecMessage] = useState('')
 
   useEffect(() => {
     if (user?.role === 'student') {
@@ -28,11 +29,19 @@ export default function Dashboard() {
   }
   const handleGetRecommendations = async () => {
     setLoadingRec(true)
+    setRecMessage('')
     try {
         const recs = await profileService.getRecommendations()
         setRecommendations(recs)
+        if (!recs || recs.length === 0) {
+          setRecMessage('No open projects available for recommendations.')
+        }
     } catch (err) {
-        alert('Could not get recommendations')
+        const message =
+          err?.response?.data?.message ||
+          err?.message ||
+          'Could not get recommendations'
+        alert(message)
     }
     setLoadingRec(false)
     }
@@ -61,6 +70,7 @@ export default function Dashboard() {
             >
                 {loadingRec ? 'Getting recommendations...' : 'Get AI Recommendations'}
             </button>
+            {recMessage && <p className="text-sm text-gray-600 mb-3">{recMessage}</p>}
             {recommendations.map((rec, i) => (
                 <div key={i} className="border p-4 rounded bg-purple-50 mb-3">
                 <p className="font-semibold">{rec.title}</p>

@@ -9,13 +9,13 @@ import PostProject from './pages/PostProject'
 import MyApplications from './pages/MyApplications'
 import MyProjects from './pages/MyProjects'
 import Applicants from './pages/Applicants'
+import Profile from './pages/Profile'
+import Blog from './pages/Blog'
+import CashFlow from './pages/CashFlow'
 
 function App() {
   const { user } = useSelector((state) => state.auth)
-
-  const wrap = (component) => user
-    ? <Layout>{component}</Layout>
-    : <Navigate to="/login" />
+  const wrap = (component) => user ? <Layout>{component}</Layout> : <Navigate to="/login" />
 
   return (
     <BrowserRouter>
@@ -28,6 +28,9 @@ function App() {
         <Route path="/my-applications" element={wrap(<MyApplications />)} />
         <Route path="/my-projects" element={wrap(<MyProjects />)} />
         <Route path="/applicants/:projectId" element={wrap(<Applicants />)} />
+        <Route path="/profile" element={wrap(<Profile />)} />
+        <Route path="/blog" element={wrap(<Blog />)} />
+        <Route path="/cashflow" element={wrap(<CashFlow />)} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>

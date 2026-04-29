@@ -4,7 +4,10 @@ const API = 'http://localhost:5000/api/profile'
 
 const getAuthHeader = () => {
   const user = JSON.parse(localStorage.getItem('user'))
-  return { headers: { Authorization: `Bearer ${user?.token}` } }
+  if (!user?.token) {
+    throw new Error('Not authenticated (missing token)')
+  }
+  return { headers: { Authorization: `Bearer ${user.token}` } }
 }
 
 const getProfile = async () => {

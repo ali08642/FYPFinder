@@ -25,15 +25,27 @@ const updateProfile = async (req, res) => {
 
 // GET /api/profile/recommendations
 const getAIRecommendations = async (req, res) => {
-  const student = await User.findById(req.user._id).select('-password')
-  const projects = await Project.find({ status: 'open' })
+  try {
+    const student = await User.findById(req.user._id).select('-password')
+    if (!student) {
+      return res.status(404).json({ message: 'User not found' })
+    }
 
-  if (projects.length === 0) {
-    return res.json([])
+    const projects = await Project.find({ status: 'open' }).limit(25)
+
+    if (projects.length === 0) {
+      return res.json([])
+    }
+
+    const recommendations = await getRecommendations(student, projects)
+    return res.json(recommendations)
+  } catch (err) {
+    console.error('AI recommendations error:', err?.message || err)
+    return res.status(502).json({
+      message: 'AI recommendations failed. Check server configuration and try again.',
+      error: err?.message || 'Unknown error',
+    })
   }
-
-  const recommendations = await getRecommendations(student, projects)
-  res.json(recommendations)
 }
 
 module.exports = { getProfile, updateProfile, getAIRecommendations }
