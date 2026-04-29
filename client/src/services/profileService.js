@@ -25,4 +25,9 @@ const getRecommendations = async () => {
   return res.data
 }
 
-export default { getProfile, updateProfile, getRecommendations }
+const generateBio = async (data) => {
+  const res = await axios.post(`${API}/generate-bio`, data, getAuthHeader())
+  return res.data
+}
+
+export default { getProfile, updateProfile, getRecommendations, generateBio }

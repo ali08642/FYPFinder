@@ -30,16 +30,16 @@ export default function BrowseProjects() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Browse Projects</h1>
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">Browse Projects</h1>
       <div className="flex gap-3 mb-6">
         <input
           placeholder="Search by title or description"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border p-2 rounded flex-1"
+          className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 flex-1"
         />
         <select value={domain} onChange={(e) => setDomain(e.target.value)}
-          className="border p-2 rounded">
+          className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
           <option>All</option>
           <option>AI</option>
           <option>Web</option>
@@ -49,19 +49,42 @@ export default function BrowseProjects() {
         </select>
       </div>
       <div className="grid gap-4">
-        {filtered.length === 0 && <p className="text-gray-500">No projects found.</p>}
+        {filtered.length === 0 && <p className="text-gray-500 text-center">No projects found</p>}
         {filtered.map((p) => (
-          <div key={p._id} className="border p-4 rounded bg-white shadow-sm">
+          <div key={p._id} className="bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition">
             <h2 className="text-lg font-semibold">{p.title}</h2>
             <p className="text-gray-600 text-sm mb-1">{p.description}</p>
             <p className="text-sm">Domain: <span className="font-medium">{p.domain}</span></p>
             <p className="text-sm">Supervisor: <span className="font-medium">{p.supervisor?.name}</span></p>
             <p className="text-sm mb-3">Team Size: {p.teamSize}</p>
             {user?.role === 'student' && (
-              <button onClick={() => handleApply(p._id)}
-                className="bg-blue-600 text-white px-4 py-1 rounded text-sm hover:bg-blue-700">
-                Apply
-              </button>
+              <div>
+                <button onClick={() => handleApply(p._id)}
+                  className="rounded-md px-4 py-2 bg-blue-700 text-white hover:bg-blue-800">
+                  Apply
+                </button>
+
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <button
+                    onClick={() => {
+                      const url = `https://www.linkedin.com/sharing/share-offsite/?url=${window.location.href}&title=${encodeURIComponent(p.title)}`
+                      window.open(url, '_blank', 'noopener,noreferrer')
+                    }}
+                    className="rounded-md px-3 py-2 bg-blue-600 text-white hover:bg-blue-700 text-sm"
+                  >
+                    Share on LinkedIn
+                  </button>
+                  <button
+                    onClick={() => {
+                      const url = `https://wa.me/?text=${encodeURIComponent(`Check out this FYP project: ${p.title} - ${window.location.href}`)}`
+                      window.open(url, '_blank', 'noopener,noreferrer')
+                    }}
+                    className="rounded-md px-3 py-2 bg-green-600 text-white hover:bg-green-700 text-sm"
+                  >
+                    Share on WhatsApp
+                  </button>
+                </div>
+              </div>
             )}
           </div>
         ))}

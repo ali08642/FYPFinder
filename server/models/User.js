@@ -27,7 +27,8 @@ const userSchema = new mongoose.Schema({
     interests: { type: String, default: '' },
     preferredDomain: { type: String, default: 'any' },
     github: { type: String, default: '' },
-    bio: { type: String, default: '' }
+    bio: { type: String, default: '' },
+    photo: { type: String, default: '' }
 },{
     timestamps:true
 })  

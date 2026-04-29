@@ -20,15 +20,15 @@ export default function PostProject() {
   }
 
   return (
-    <div className="p-8 max-w-lg">
-      <h1 className="text-2xl font-bold mb-6">Post a Project</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="max-w-lg">
+      <h1 className="text-2xl font-bold text-gray-800 mb-6">Post a Project</h1>
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition space-y-4">
         <input name="title" placeholder="Title" value={form.title}
-          onChange={handleChange} className="w-full border p-2 rounded" required />
+          onChange={handleChange} className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" required />
         <textarea name="description" placeholder="Description" value={form.description}
-          onChange={handleChange} className="w-full border p-2 rounded" rows={4} required />
+          onChange={handleChange} className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" rows={4} required />
         <select name="domain" value={form.domain}
-          onChange={handleChange} className="w-full border p-2 rounded">
+          onChange={handleChange} className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full">
           <option>AI</option>
           <option>Web</option>
           <option>Mobile</option>
@@ -36,8 +36,8 @@ export default function PostProject() {
           <option>Other</option>
         </select>
         <input name="teamSize" type="number" placeholder="Team Size" value={form.teamSize}
-          onChange={handleChange} className="w-full border p-2 rounded" />
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+          onChange={handleChange} className="border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" />
+        <button type="submit" className="w-full rounded-md px-4 py-2 bg-blue-700 text-white hover:bg-blue-800">
           Post Project
         </button>
       </form>

@@ -36,6 +36,10 @@ app.use('/api/profile', profileRoutes)
 const blogRoutes = require('./routes/blogRoutes')
 app.use('/api/blog', blogRoutes)
 
+//contact
+const contactRoutes = require('./routes/contactRoutes')
+app.use('/api/contact', contactRoutes)
+
 
 //admin things routes for those things
 const adminRoutes = require('./routes/adminRoutes')
